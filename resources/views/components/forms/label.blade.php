@@ -1,3 +1,2 @@
-@props(["label"])
 
-<label for="{{$input}}" {{$attributs->merge(["class"=>""])}}> {{$label}}</label>
+<label {{$attributes->merge(["class"=>"text-white"])}}> {{$slot}}</label>
