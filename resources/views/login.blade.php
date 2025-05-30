@@ -1,7 +1,7 @@
 <x-layout>
     <x-container>
-        <h1 class="text-center text-3xl my">User Login</h1>
-        <x-forms.form action="/register" method="post" class="space-y-5">
+        <h1 class="text-center text-3xl my font-medium">User Login</h1>
+        <x-forms.form action="job/login" method="post" class="space-y-5">
             @csrf
             @php
                 $style="w-full max-w-[50rem] space-y-2";

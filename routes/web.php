@@ -6,8 +6,9 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::view("/register", "registration");
-Route::view("/login", "login");
-Route::get("/result", function () {
+Route::view("/job/register", "registration");
+Route::view("/job/login", "login");
+Route::view("/job/post", "post-job");
+Route::get("/job/result", function () {
     return view("result");
 });
