@@ -8,12 +8,12 @@
     </div>
     <div class="space-x-5">
         @auth
-            <x-anchor href="#" class="text-xl text-white">Post a Job</x-anchor>
+            <x-anchor href="/post-job" class="text-xl text-white">Post a Job</x-anchor>
             <x-anchor href="#" class="text-xl text-white">Log Out</x-anchor>
         @endauth
         @guest
-            <x-anchor href="/job/login" class="text-xl text-white">Log In</x-anchor>
-            <x-anchor href="/job/register" class="text-xl text-white">Register</x-anchor>
+            <x-anchor href="/login" class="text-xl text-white">Log In</x-anchor>
+            <x-anchor href="/register" class="text-xl text-white">Register</x-anchor>
         @endguest
     </div>
 </nav>

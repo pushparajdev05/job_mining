@@ -13,7 +13,7 @@ class employer extends Model
     {
        return $this->hasMany(joblist::class);
     }
-    public function users()
+    public function user()
     {
        return $this->belongsTo(User::class);
     }
