@@ -20,5 +20,5 @@ class tagFactory extends Factory
         return [
             "name" => fake()->unique()->word,
         ];
-    }   
+    }
 }

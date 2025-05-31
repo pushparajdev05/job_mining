@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException as ValidationValidationException;
+use Illuminate\Validation\ValidationException;
 
 class loginController extends Controller
 {
@@ -25,10 +24,18 @@ class loginController extends Controller
 
         if(!Auth::attempt($attr))
         {
-            throw ValidationValidationException::withMessages([
+            throw ValidationException::withMessages([
                 "email" => "User Credential does not match"
             ]);
         }
+
+        return redirect("/");
+    }
+    public function destroy()
+    {
+        Auth::logout();
+
+        session()->invalidate();
 
         return redirect("/");
     }

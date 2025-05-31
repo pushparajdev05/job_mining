@@ -37,7 +37,7 @@ class jobPolicy
      */
     public function update(User $user, joblist $joblist): bool
     {
-        if($user->is($joblist->employer()->user()))
+        if($joblist->employer()->user()->is($user))
         {
             return true;
         }
@@ -49,7 +49,7 @@ class jobPolicy
      */
     public function delete(User $user, joblist $joblist): bool
     {
-        if($user->is($joblist->employer()->user()))
+        if($joblist->employer()->user()->is($user))
         {
             return true;
         }

@@ -9,7 +9,10 @@
     <div class="space-x-5">
         @auth
             <x-anchor href="/post-job" class="text-xl text-white">Post a Job</x-anchor>
-            <x-anchor href="#" class="text-xl text-white">Log Out</x-anchor>
+            <input type="submit" class="text-white text-xl cursor-pointer" value="LogOut" form="logout">
+            <x-forms.form id="logout" method="post" action="/logout" class="hidden">
+                @csrf
+            </x-forms.form>
         @endauth
         @guest
             <x-anchor href="/login" class="text-xl text-white">Log In</x-anchor>

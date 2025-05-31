@@ -8,6 +8,10 @@
         <x-list-heading> {{$label}}</x-list-heading>
         @endif
     </x-forms.label>
-    <x-forms.input class="w-full {{ $type == 'file' ? 'file:bg-white file:text-black file:px-2 file:rounded-sm' : '' }}" placeholder="{{$placeholder}}" type="{{ $type }}">{{$name}}</x-forms.input>
+    <x-forms.input class="w-full {{ $type == 'file' ? 'file:bg-white file:text-black file:px-2 file:rounded-sm' : '' }}" placeholder="{{$placeholder}}" type="{{ $type }}" value="{{ $slot }}">{{$name}}</x-forms.input>
+    @error($name)
+        <x-forms.error>{{ $message }}</x-forms.error>
+    @enderror
+
 
 </div>

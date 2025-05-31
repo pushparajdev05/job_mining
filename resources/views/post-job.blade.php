@@ -1,7 +1,7 @@
 <x-layout>
     <x-container>
         <h1 class="text-center text-3xl my font-medium">Post a Job</h1>
-        <x-forms.form action="/job/create" method="post" enctype="multipart/form-data" class="space-y-5">
+        <x-forms.form action="/post-job" method="post" enctype="multipart/form-data" class="space-y-5">
             @csrf
             @php
                 $style="w-full max-w-[50rem] space-y-2";

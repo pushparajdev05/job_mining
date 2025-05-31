@@ -11,7 +11,7 @@ class tag extends Model
 
     public function joblists()
     {
-       return $this->belongsToMany(joblist::class);
+       return $this->belongsToMany(joblist::class,"tag_joblist");
     }
 
 }

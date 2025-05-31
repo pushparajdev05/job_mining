@@ -14,10 +14,14 @@ class joblistController extends Controller
      */
     public function index()
     {
-        $jobs = joblist::all();
+        $jobs = joblist::with(["employer","tags"])->latest()->get();
+
+        $tags = tag::all();
+
         return view("home",[
-            "jobs" => $jobs
-        ]);
+            "jobs" => $jobs,
+            "tags" => $tags,
+            ]);
     }
 
     /**
@@ -76,15 +80,20 @@ class joblistController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(joblist $joblist)
+    public function edit(joblist $job)
     {
-        return view("edit-job");
+
+        return view("edit-job",
+        [
+            "job" => $job
+        ]
+    );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, joblist $joblist)
+    public function update(Request $request, joblist $job)
     {
         $attr = $request->validate([
             "title" => ["required"],
@@ -98,7 +107,7 @@ class joblistController extends Controller
 
         $tags = array_splice($attr, -1, 1);
 
-        $joblist->update($attr);
+        $job->update($attr);
 
         $tag_arr = explode($tags["tags"],",");
         $tag_id = [];
@@ -108,15 +117,17 @@ class joblistController extends Controller
             $tag_id[]=tag::firstOrCreate($trimedTag,$trimedTag)["id"];
         }
 
-        $joblist->tags()->sync($tag_id);
+        $job->tags()->sync($tag_id);
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(joblist $joblist)
+    public function destroy(joblist $job)
     {
-        
+        $job->delete();
+
+        return redirect("/");
     }
 }

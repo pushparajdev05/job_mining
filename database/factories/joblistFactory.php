@@ -20,7 +20,7 @@ class joblistFactory extends Factory
         return [
             "employer_id" => employer::factory(),
             "title" => fake()->jobTitle(),
-            "salary" => fake()->randomElement(['$60,000', '$65,000', '70,000']),
+            "salary" => fake()->randomElement(['$60,000', '$65,000', '$70,000']),
             "rating" => fake()->randomFloat(1, 1, 5),
             "location" => fake()->randomElement(["On-site", "Remote", "hybrid"]),
             "schedule" => fake()->randomElement(['Full Time', 'Part Time', 'Day Shift', 'Evening Shift', 'Night Shift']),
