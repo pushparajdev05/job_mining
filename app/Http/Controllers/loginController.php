@@ -29,6 +29,8 @@ class loginController extends Controller
             ]);
         }
 
+        request()->session()->regenerate();
+        
         return redirect("/");
     }
     public function destroy()

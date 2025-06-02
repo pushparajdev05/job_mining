@@ -1,5 +1,6 @@
 @props(['job'=>[]])
 @php
+// dd($job);
     $tags = $job->tags;
 @endphp
 <div class="w-full bg-gray-600/25 rounded-lg border border-gray-50/10 hover:border-border transition duration-300 text-white group p-6 flex items-center">
@@ -11,11 +12,11 @@
             <span class="italic self-start text-base opacity-80">{{$job->employer->name}}</span>
             <div class="space-x-4">
                 <span class="italic text-base opacity-80 border border-gray-50/10 bg-neutral-300/15 px-1.5 py-0.5 rounded-lg">{{ $job->location }}</span>
-                <span class="italic text-base opacity-80 border-gray-50/10 bg-neutral-300/15 px-1.5 py-0.5 rounded-lg">Rating - {{ $job->rating }}</span>
+                <span class="italic text-base opacity-80 border-gray-50/10 bg-neutral-300/15 px-1.5 py-0.5 rounded-lg">Rating - &#9733; {{ $job->rating }}</span>
             </div>
         </div>
         <div>
-            <a href="{{ url('/post-job/'. $job->id) }}" class="text-2xl font-medium group-hover:text-border duration-300">{{ $job->title }}</a>
+            <a href="{{ url('/jobprofile/'. $job->id) }}" class="text-2xl font-medium group-hover:text-border duration-300">{{ $job->title }}</a>
         </div>
         <div class="flex justify-between">
             <span class="text-sm text-white/60">{{ $job->schedule }} - From {{ $job->salary }}</span>

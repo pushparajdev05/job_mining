@@ -2,11 +2,12 @@
 
 namespace App\Policies;
 
+use App\Models\employer;
 use App\Models\User;
 use App\Models\joblist;
 use Illuminate\Auth\Access\Response;
 
-class jobPolicy
+class joblistPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -35,9 +36,10 @@ class jobPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, joblist $joblist): bool
+    public function update(User $user, joblist $job): bool
     {
-        if($joblist->employer()->user()->is($user))
+        // dd($job -> employer->user);
+        if($job->employer->user->is($user))
         {
             return true;
         }
@@ -47,9 +49,9 @@ class jobPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, joblist $joblist): bool
+    public function delete(User $user, joblist $job): bool
     {
-        if($joblist->employer()->user()->is($user))
+        if($job->employer->user->is($user))
         {
             return true;
         }

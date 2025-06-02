@@ -12,8 +12,9 @@
             <x-forms.fields label="Confirm Password" name="password_confirmation" class="{{ $style }}"></x-forms.fields>
             <div class="border-b border-gray-100/30 w-full max-w-[52rem] mt-2"></div>
             <x-forms.fields label="Employer Name" name="empName" class="{{ $style }}" placeholder="Eg. RamKumar J"></x-forms.fields>
+            <x-forms.fields label="Company Name" name="cmpName" class="{{ $style }}" placeholder="Eg. Colan infoTech private limited"></x-forms.fields>
             <x-forms.fields label="Company Logo" name="logo" type="file" class="{{ $style }}"></x-forms.fields>
-            <x-forms.button class="bg-blue-600 text-lg font-medium hover:bg-blue-500/90 py-2 px-3 rounded-md" type="submit">Create Account</x-forms.button>
+            <x-forms.button class="bg-blue-600 hover:bg-blue-500/90" type="submit">Create Account</x-forms.button>
         </x-forms.form>
     </x-container>
 </x-layout>

@@ -25,6 +25,7 @@ class joblistFactory extends Factory
             "location" => fake()->randomElement(["On-site", "Remote", "hybrid"]),
             "schedule" => fake()->randomElement(['Full Time', 'Part Time', 'Day Shift', 'Evening Shift', 'Night Shift']),
             "url" => fake()->url(),
+            "Address" => fake()->address()
         ];
     }
 }

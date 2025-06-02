@@ -18,8 +18,9 @@ class employerFactory extends Factory
     public function definition(): array
     {
         return [
-            "name" =>fake()->name,
             "user_id" =>User::factory(),
+            "name" =>fake()->name,
+            "cmpName" => fake()->company(),
             "logo" => fake()->url()
         ];
     }

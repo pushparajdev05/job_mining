@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\jobMail;
 use App\Models\joblist;
 use App\Models\tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class joblistController extends Controller
@@ -37,30 +40,9 @@ class joblistController extends Controller
      */
     public function store(Request $request)
     {
-        $attr = $request->validate([
-            "title" => ["required"],
-            "salary" => ["required"],
-            "rating" => ["required"],
-            "location" => ["required",Rule::in(['On-Site','Remote','Hybrid'])],
-            "schedule" => ["required", Rule::in(['Full Time', 'Part Time', 'Day Shift', 'Evening Shift', 'Night Shift'])],
-            "url" => ["required","url"],
-            "tags" => ["required"]
-        ]);
-        $tags = array_splice($attr, -1, 1);
 
-        $joblist = joblist::create($attr);
-
-        // tags attach to joblist
-        $tag_arr = explode($tags["tags"],",");
-        $tag_id = [];
-        foreach($tag_arr as $tag)
-        {
-            $trimedTag = ["name" => trim($tag)];
-            $tag_id[]=tag::firstOrCreate($trimedTag,$trimedTag)["id"];
-        }
-
-        $joblist->tags()->attach($tag_id);
-
+        self::validationAndAction($request,"create");
+        return redirect("/");
 
     }
 
@@ -72,7 +54,7 @@ class joblistController extends Controller
         return view(
             "result",
             [
-                "job" => $job
+                "jobs" => [$job]
             ]
         );
     }
@@ -95,29 +77,9 @@ class joblistController extends Controller
      */
     public function update(Request $request, joblist $job)
     {
-        $attr = $request->validate([
-            "title" => ["required"],
-            "salary" => ["required"],
-            "rating" => ["required"],
-            "location" => ["required",Rule::in(['On-Site','Remote','Hybrid'])],
-            "schedule" => ["required", Rule::in(['Full Time', 'Part Time', 'Day Shift', 'Evening Shift', 'Night Shift'])],
-            "url" => ["required","url"],
-            "tags" => ["required"]
-        ]);
+        self::validationAndAction($request,"update", $job);
 
-        $tags = array_splice($attr, -1, 1);
-
-        $job->update($attr);
-
-        $tag_arr = explode($tags["tags"],",");
-        $tag_id = [];
-        foreach($tag_arr as $tag)
-        {
-            $trimedTag = ["name" => trim($tag)];
-            $tag_id[]=tag::firstOrCreate($trimedTag,$trimedTag)["id"];
-        }
-
-        $job->tags()->sync($tag_id);
+        return redirect("/");
 
     }
 
@@ -130,4 +92,52 @@ class joblistController extends Controller
 
         return redirect("/");
     }
+
+    public function validationAndAction(Request $request,$action, $job = null)
+    {
+       $attr = $request->validate([
+            "title" => ["required"],
+            "salary" => ["required"],
+            "rating" => ["required"],
+            "location" => ["required", Rule::in(['On-Site', 'Remote', 'Hybrid'])],
+            "schedule" => ["required", Rule::in(['Full Time', 'Part Time', 'Day Shift', 'Evening Shift', 'Night Shift'])],
+            "Address" => ["required"],
+            "url" => ["required", "url"],
+            "tags" => ["required"]
+        ]);
+
+
+        $tags = array_splice($attr, -1, 1);
+        $tag_arr = explode(",",$tags["tags"]);
+        if($action == "update")
+        {
+            $job->update($attr);
+        }
+        else
+        {
+            $employer_id = Auth::user()->employer->id;
+            $job = joblist::create($attr + ["employer_id" => "$employer_id"]);
+
+        }
+
+        $tag_id = [];
+        foreach($tag_arr as $tag)
+        {
+            $trimedTag = ["name" => trim($tag)];
+            $tag_id[]=tag::firstOrCreate($trimedTag,$trimedTag)->id;
+
+        }
+        if($action == "update")
+        {
+            $job->tags()->sync($tag_id);
+
+        }
+        else
+        {
+
+        $job->tags()->syncWithoutDetaching($tag_id);
+        Mail::to("rajubai0610@gmail.com")->send(new jobMail($job));
+        }
+    }
+
 }

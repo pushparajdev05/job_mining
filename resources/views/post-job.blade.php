@@ -11,6 +11,7 @@
             <x-forms.fields type="number" label="Rating" name="rating" class="{{ $style }}" placeholder="Eg. 4.3 (out of 5)"></x-forms.fields>
             <x-forms.select label="Location" name="location" class="{{ $style }}" :values="['On-Site','Remote','Hybrid']"></x-forms.select>
             <x-forms.select label="Schedule" name="schedule" class="{{ $style }}" :values="['Full Time', 'Part Time', 'Day Shift', 'Evening Shift', 'Night Shift']"></x-forms.select>
+            <x-forms.fields label="Address" name="Address" class="{{ $style }}" placeholder="Eg. 123 Market St, San Francisco, CA 94103"></x-forms.fields>
             <x-forms.fields label="URL" name="url" class="{{ $style }}" placeholder="Eg. https://www.abc.com/company/job"></x-forms.fields>
 
             <div class="border-b border-gray-100/30 w-full max-w-[52rem] mt-2"></div>
